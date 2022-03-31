@@ -2,7 +2,7 @@
 --enter custom cursors to the cursors table
 
 repeat wait() until game.Players.LocalPlayer
-local cursors = {[1] = "rbxassetid://6432928685", [2] = "rbxassetid://6500475130", [3] = "http://www.roblox.com/asset/?id=6718486655", [4] = "http://www.roblox.com/asset/?id=6752054233"}
+
 getgenv().cursorUiToggleKey = Enum.KeyCode.J
 
 getgenv().currentCursor = cursors[1]
