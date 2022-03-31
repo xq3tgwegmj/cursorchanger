@@ -5,7 +5,7 @@ repeat wait() until game.Players.LocalPlayer
 
 getgenv().cursorUiToggleKey = Enum.KeyCode.J
 
-getgenv().currentCursor = cursors[1]
+getgenv().currentCursor = getgenv().cursors[1]
 game.Players.LocalPlayer:GetMouse().Icon = getgenv().currentCursor
 game.Players.LocalPlayer:GetMouse():GetPropertyChangedSignal("Icon"):Connect(function()
     game.Players.LocalPlayer:GetMouse().Icon = getgenv().currentCursor
@@ -17,10 +17,10 @@ game:GetService("UserInputService").InputBegan:Connect(function(inp,typing)
     if not typing then
         if inp.KeyCode == Enum.KeyCode.X then
             counter = counter+1
-            if counter > #cursors then
+            if counter > #getgenv().cursors then
                 counter = 1
             end
-            getgenv().currentCursor = cursors[counter]
+            getgenv().currentCursor = getgenv().cursors[counter]
             game.Players.LocalPlayer:GetMouse().Icon = getgenv().currentCursor
         end
     end
