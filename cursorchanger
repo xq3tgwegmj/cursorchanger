@@ -1,6 +1,8 @@
 --j to toggle ui to enter cursor [ IMAGE ID ]
 --enter custom cursors to the cursors table
 
+getgenv().cursors = {[1] = "rbxassetid://6432928685", [2] = "rbxassetid://6500475130", [3] = "http://www.roblox.com/asset/?id=6718486655", [4] = "http://www.roblox.com/asset/?id=6752054233"}
+
 repeat wait() until game.Players.LocalPlayer
 
 getgenv().cursorUiToggleKey = Enum.KeyCode.J
@@ -25,6 +27,8 @@ game:GetService("UserInputService").InputBegan:Connect(function(inp,typing)
         end
     end
 end)
+
+--------------------------------------------------------------- gui
 
 -- Gui to Lua
 -- Version: 3.2
