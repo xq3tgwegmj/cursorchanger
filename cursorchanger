@@ -6,7 +6,7 @@ getgenv().cursors = {[1] = "rbxassetid://6432928685", [2] = "rbxassetid://650047
 repeat wait() until game.Players.LocalPlayer
 
 getgenv().cursorUiToggleKey = Enum.KeyCode.J
-getgenv().cursorChangeKey = Enum.KeyCode.K
+getgenv().cursorChangeKey = Enum.KeyCode.X
 
 getgenv().currentCursor = getgenv().cursors[1]
 game.Players.LocalPlayer:GetMouse().Icon = getgenv().currentCursor
