@@ -1,7 +1,9 @@
 --j to toggle ui to enter cursor [ IMAGE ID ]
 --enter custom cursors to the cursors table
 
-getgenv().cursors = {[1] = "rbxassetid://6432928685", [2] = "rbxassetid://6500475130", [3] = "http://www.roblox.com/asset/?id=6718486655", [4] = "http://www.roblox.com/asset/?id=6752054233"}
+if not getgenv().cursors then
+	getgenv().cursors = {[1] = "rbxassetid://6432928685", [2] = "rbxassetid://6500475130", [3] = "http://www.roblox.com/asset/?id=6718486655", [4] = "http://www.roblox.com/asset/?id=6752054233"}
+end
 
 repeat wait() until game.Players.LocalPlayer
 
