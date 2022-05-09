@@ -10,7 +10,6 @@ getgenv().cursorUiToggleKey = Enum.KeyCode.J
 local players = game:GetService("Players")
 repeat wait() until players.LocalPlayer
 local player = players.LocalPlayer
-local team = player.Team
 
 if not getgenv().cursors then
 getgenv().cursors = {
@@ -73,9 +72,9 @@ player:GetMouse().Move:Connect(function()
     			local targetPlayer = players:GetPlayerFromCharacter(targetModel)
     			if targetPlayer then
     				if player ~= targetPlayer then
-    					if targetPlayer.Team == team then
+    					if targetPlayer.Team == player.Team then
     						updCursor(getgenv().cursors[getgenv().currentCursorId].friendly)
-    					elseif targetPlayer.Team ~= team then
+    					elseif targetPlayer.Team ~= player.Team then
     						updCursor(getgenv().cursors[getgenv().currentCursorId].enemy)
     					end
     				else
@@ -213,6 +212,6 @@ end)
 
 game:GetService("StarterGui"):SetCore("SendNotification", {
    Title = "Bottle Cursor Changer",
-   Text = "- [X] - change cursor                    - [J]  - custom cursor gui",
+   Text = "- [X] - change cursor    [J] - custom cursor gui",
    Icon = "http://www.roblox.com/asset/?id=9405011319"
 })
