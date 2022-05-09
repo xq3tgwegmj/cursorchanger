@@ -209,3 +209,9 @@ UserInputService.InputChanged:Connect(function(input)
 		update(input)
 	end
 end)
+
+game:GetService("StarterGui"):SetCore("SendNotification", {
+   Title = "Bottle Cursor Changer",
+   Text = "- [X] - change cursor [J] - custom cursor gui",
+   Icon = "http://www.roblox.com/asset/?id=9405011319"
+})
