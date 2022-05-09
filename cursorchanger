@@ -74,9 +74,9 @@ player:GetMouse().Move:Connect(function()
     			if targetPlayer then
     				if player ~= targetPlayer then
     					if targetPlayer.Team == team then
-    						updCursor(getgenv().cursors[getgenv().currentCursorId].enemy)
-    					elseif targetPlayer.Team ~= team then
     						updCursor(getgenv().cursors[getgenv().currentCursorId].friendly)
+    					elseif targetPlayer.Team ~= team then
+    						updCursor(getgenv().cursors[getgenv().currentCursorId].enemy)
     					end
     				else
     					updCursor(getgenv().cursors[getgenv().currentCursorId].neutral)
