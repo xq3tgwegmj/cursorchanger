@@ -1,23 +1,54 @@
---j to toggle ui to enter cursor [ IMAGE ID ]
---enter custom cursors to the cursors table
+--[[
+    bottle pro cursor changer
+    - x to cycle through cursors
+    - j to open custom cursor gui
+]]
+
+getgenv().cursorChangeKey = Enum.KeyCode.X
+getgenv().cursorUiToggleKey = Enum.KeyCode.J
+
+local players = game:GetService("Players")
+local player = players.LocalPlayer
+local team = player.Team
 
 if not getgenv().cursors then
-	getgenv().cursors = {[1] = "rbxassetid://6432928685", [2] = "rbxassetid://6500475130", [3] = "http://www.roblox.com/asset/?id=6718486655", [4] = "http://www.roblox.com/asset/?id=6752054233"}
+getgenv().cursors = {
+    [1] = {
+        ["neutral"] = "rbxassetid://7808856331",
+        ["enemy"] = "rbxassetid://7808856842",
+        ["friendly"] = "rbxassetid://7808857452"
+    },
+    [2] = {
+        ["neutral"] = "rbxassetid://9589653509",
+        ["enemy"] = "rbxassetid://9589677691",
+        ["friendly"] = "rbxassetid://9589677089"
+    },
+    [3] = {
+        ["neutral"] = "rbxassetid://9589721295",
+        ["enemy"] = "rbxassetid://9589722428",
+        ["friendly"] = "rbxassetid://9589723195"
+    },
+    [4] = {
+        ["neutral"] = "rbxassetid://9589762565",
+        ["enemy"] = "rbxassetid://9589777124",
+        ["friendly"] = "rbxassetid://9589777805"
+    },
+}
 end
 
-repeat wait() until game.Players.LocalPlayer
+getgenv().currentCursor = getgenv().cursors[1].neutral
+getgenv().currentCursorId = 1
 
-getgenv().cursorUiToggleKey = Enum.KeyCode.J
-getgenv().cursorChangeKey = Enum.KeyCode.X
+function updCursor(cursor)
+    player:GetMouse().Icon = cursor
+    getgenv().currentCursor = cursor
+end
 
-getgenv().currentCursor = getgenv().cursors[1]
-game.Players.LocalPlayer:GetMouse().Icon = getgenv().currentCursor
-game.Players.LocalPlayer:GetMouse():GetPropertyChangedSignal("Icon"):Connect(function()
-    game.Players.LocalPlayer:GetMouse().Icon = getgenv().currentCursor
+player:GetMouse():GetPropertyChangedSignal("Icon"):Connect(function()
+    player:GetMouse().Icon = getgenv().currentCursor
 end)
 
 local counter = 1
-
 game:GetService("UserInputService").InputBegan:Connect(function(inp,typing)
     if not typing then
         if inp.KeyCode == getgenv().cursorChangeKey then
@@ -25,13 +56,43 @@ game:GetService("UserInputService").InputBegan:Connect(function(inp,typing)
             if counter > #getgenv().cursors then
                 counter = 1
             end
-            getgenv().currentCursor = getgenv().cursors[counter]
-            game.Players.LocalPlayer:GetMouse().Icon = getgenv().currentCursor
+            updCursor(getgenv().cursors[counter].neutral)
+            getgenv().currentCursorId = counter
         end
     end
 end)
 
---------------------------------------------------------------- gui
+player:GetMouse().Move:Connect(function()
+    player:GetMouse().Icon = getgenv().currentCursor
+    if getgenv().currentCursor == getgenv().cursors[getgenv().currentCursorId].neutral or getgenv().currentCursor == getgenv().cursors[getgenv().currentCursorId].enemy or getgenv().currentCursor == getgenv().cursors[getgenv().currentCursorId].friendly then
+    	local targetPart = player:GetMouse().Target
+    	if targetPart then
+    		local targetModel = targetPart:FindFirstAncestorOfClass("Model")
+    		if targetModel then
+    			local targetPlayer = players:GetPlayerFromCharacter(targetModel)
+    			if targetPlayer then
+    				if player ~= targetPlayer then
+    					if targetPlayer.Team == team then
+    						updCursor(getgenv().cursors[getgenv().currentCursorId].enemy)
+    					elseif targetPlayer.Team ~= team then
+    						updCursor(getgenv().cursors[getgenv().currentCursorId].friendly)
+    					end
+    				else
+    					updCursor(getgenv().cursors[getgenv().currentCursorId].neutral)
+    				end
+    			elseif targetModel:FindFirstChild("Humanoid") then
+    			    updCursor(getgenv().cursors[getgenv().currentCursorId].enemy)
+    			else
+    				updCursor(getgenv().cursors[getgenv().currentCursorId].neutral)
+    			end
+    		else
+    			updCursor(getgenv().cursors[getgenv().currentCursorId].neutral)
+    		end
+    	else
+    		updCursor(getgenv().cursors[getgenv().currentCursorId].neutral)
+    	end
+    end
+end)
 
 -- Gui to Lua
 -- Version: 3.2
