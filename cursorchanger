@@ -8,6 +8,7 @@ getgenv().cursorChangeKey = Enum.KeyCode.X
 getgenv().cursorUiToggleKey = Enum.KeyCode.J
 
 local players = game:GetService("Players")
+repeat wait() until players.LocalPlayer
 local player = players.LocalPlayer
 local team = player.Team
 
