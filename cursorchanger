@@ -42,6 +42,7 @@ getgenv().currentCursorId = 1
 function updCursor(cursor)
     player:GetMouse().Icon = cursor
     getgenv().currentCursor = cursor
+    player:GetMouse().Icon = cursor
 end
 
 player:GetMouse():GetPropertyChangedSignal("Icon"):Connect(function()
